@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Explainable AI Finance App</title>
+  <style>
+    :root {
+      --ink: #e8e8e8;
+      --muted: #8892b0;
+      --card: rgba(255, 255, 255, 0.05);
+      --line: rgba(255, 255, 255, 0.1);
+      --accent: #667eea;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: var(--ink);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    .wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem 4rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+      transition: color 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: #fff;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      max-width: 60ch;
+      margin-bottom: 2rem;
+    }
+
+    .slide-row {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+    }
+
+    .slide-row img {
+      width: 25%;
+      height: auto;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      display: block;
+    }
+
+    .slide-row .frame-outline {
+      border: 2px solid rgba(0, 0, 0, 0.6);
+    }
+
+    .slide-row .frame-rounded {
+      border-radius: 32px;
+    }
+
+    .slide-row .frame-soft {
+      border-radius: 20px;
+    }
+
+    .slide-row .slide-smaller {
+      transform: scale(0.96);
+      transform-origin: top center;
+    }
+
+
+    .content {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1.5rem;
+    }
+
+    .panel h2 {
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      font-size: 0.8rem;
+      color: #c7d2fe;
+      background: rgba(102, 126, 234, 0.15);
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back-link" href="index.html#projects">← Back to projects</a>
+
+    <h1>Explainable AI Finance App</h1>
+    <p class="subtitle">
+      Designed a student-focused budgeting experience that pairs predictive spending
+      insights with explainable AI so users understand the “why” behind recommendations.
+    </p>
+
+    <div class="slide-row">
+      <img class="slide-smaller frame-soft" src="assets/explainable-2.png" alt="Explainable AI finance slide preview 2">
+      <img class="frame-outline frame-soft" src="assets/explainable-1.png" alt="Explainable AI finance slide preview 1">
+      <img class="slide-smaller frame-rounded" src="assets/explainable-4.png" alt="Explainable AI finance slide preview 4">
+    </div>
+
+    <div class="content">
+      <div class="panel">
+        <h2>Impact</h2>
+        <p>
+          Combined behavioral finance concepts with transparent ML outputs to improve
+          trust, adoption, and clarity for student users.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h2>Tools</h2>
+        <div class="tags">
+          <span class="tag">React</span>
+          <span class="tag">Figma</span>
+          <span class="tag">ML</span>
+          <span class="tag">UX Research</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
