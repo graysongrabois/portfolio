@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legislative Floor Calendar Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #e8e8e8;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .dashboard {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 0%, #a8b2d1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .dashboard-header p {
+            color: #8892b0;
+            font-size: 0.95rem;
+        }
+
+        .dashboard-header .date-badge {
+            display: inline-block;
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.8rem;
+            color: #8892b0;
+            margin-top: 0.25rem;
+        }
+
+        .stat-card.support .stat-value { color: #48bb78; }
+        .stat-card.oppose .stat-value { color: #fc8181; }
+        .stat-card.neutral .stat-value { color: #f6e05e; }
+        .stat-card.fiscal .stat-value { color: #667eea; }
+
+        /* Charts Section */
+        .charts-section {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+
+        .chart-card h3 {
+            font-size: 0.9rem;
+            color: #a8b2d1;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 180px;
+        }
+
+        /* Bills Table */
+        .table-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.25rem;
+            overflow: hidden;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .table-header h3 {
+            font-size: 1rem;
+            color: #fff;
+        }
+
+        .table-header .filter-pills {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .filter-pill {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #8892b0;
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-pill:hover, .filter-pill.active {
+            background: rgba(102, 126, 234, 0.2);
+            border-color: rgba(102, 126, 234, 0.5);
+            color: #667eea;
+        }
+
+        .bills-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .bills-table th {
+            text-align: left;
+            padding: 0.75rem;
+            color: #8892b0;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .bills-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #a8b2d1;
+        }
+
+        .bills-table tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .bills-table .bill-id {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .position-badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .position-badge.support { background: rgba(72, 187, 120, 0.2); color: #48bb78; }
+        .position-badge.oppose { background: rgba(252, 129, 129, 0.2); color: #fc8181; }
+        .position-badge.neutral { background: rgba(246, 224, 94, 0.2); color: #f6e05e; }
+
+        .fiscal-badge {
+            display: inline-block;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+        }
+
+        .table-scroll {
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .table-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .table-scroll::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+
+        .table-scroll::-webkit-scrollbar-thumb {
+            background: rgba(102, 126, 234, 0.3);
+            border-radius: 3px;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .bills-table {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="dashboard-header">
+            <h1>Texas House Floor Calendar</h1>
+            <p>Legislative Bill Tracking Dashboard</p>
+            <span class="date-badge">May 28, 2025 - 89th Legislature</span>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">72</div>
+                <div class="stat-label">Bills on Calendar</div>
+            </div>
+            <div class="stat-card support">
+                <div class="stat-value">44</div>
+                <div class="stat-label">Caucus Support</div>
+            </div>
+            <div class="stat-card oppose">
+                <div class="stat-value">9</div>
+                <div class="stat-label">Caucus Oppose</div>
+            </div>
+            <div class="stat-card fiscal">
+                <div class="stat-value">11</div>
+                <div class="stat-label">Fiscal Impact</div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts-section">
+            <div class="chart-card">
+                <h3>Caucus Position</h3>
+                <div class="chart-container">
+                    <canvas id="caucusChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3>TCC Position</h3>
+                <div class="chart-container">
+                    <canvas id="tccChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3>Committee Breakdown</h3>
+                <div class="chart-container">
+                    <canvas id="committeeChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bills Table -->
+        <div class="table-section">
+            <div class="table-header">
+                <h3>Bill Details</h3>
+                <div class="filter-pills">
+                    <span class="filter-pill active">All</span>
+                    <span class="filter-pill">Support</span>
+                    <span class="filter-pill">Oppose</span>
+                    <span class="filter-pill">Fiscal</span>
+                </div>
+            </div>
+            <div class="table-scroll">
+                <table class="bills-table">
+                    <thead>
+                        <tr>
+                            <th>Bill</th>
+                            <th>Author</th>
+                            <th>Committee</th>
+                            <th>Caucus</th>
+                            <th>TCC</th>
+                            <th>Fiscal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="bill-id">SB 15</td>
+                            <td>Bettencourt</td>
+                            <td>Land & Resource Mgmt</td>
+                            <td><span class="position-badge neutral">Neutral</span></td>
+                            <td><span class="position-badge support">Support</span></td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td class="bill-id">SB 7</td>
+                            <td>Perry</td>
+                            <td>Natural Resources</td>
+                            <td><span class="position-badge support">Support</span></td>
+                            <td><span class="position-badge support">Support</span></td>
+                            <td><span class="fiscal-badge">FISCAL</span></td>
+                        </tr>
+                        <tr>
+                            <td class="bill-id">SB 13</td>
+                            <td>Paxton</td>
+                            <td>Public Education</td>
+                            <td><span class="position-badge support">Support</span></td>
+                            <td><span class="position-badge support">Support</span></td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td class="bill-id">SB 646</td>
+                            <td>West</td>
+                            <td>Higher Education</td>
+                            <td><span class="position-badge oppose">Oppose</span></td>
+                            <td><span class="position-badge oppose">Oppose</span></td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td class="bill-id">SB 800</td>
+                            <td>Zaffirini</td>
+                            <td>Higher Education</td>
+                            <td><span class="position-badge oppose">Oppose</span></td>
+                            <td><span class="position-badge neutral">Neutral</span></td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td class="bill-id">SB 790</td>
+                            <td>Alvarado</td>
+                            <td>Natural Resources</td>
+                            <td><span class="position-badge support">Support</span></td>
+                            <td><span class="position-badge support">Support</span></td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td class="bill-id">SB 571</td>
+                            <td>Bettencourt</td>
+                            <td>Public Education</td>
+                            <td><span class="position-badge support">Support</span></td>
+                            <td><span class="position-badge support">Support</span></td>
+                            <td><span class="fiscal-badge">FISCAL</span></td>
+                        </tr>
+                        <tr>
+                            <td class="bill-id">SB 1957</td>
+                            <td>Hagenbuch</td>
+                            <td>Intergovernmental Affairs</td>
+                            <td><span class="position-badge support">Support</span></td>
+                            <td><span class="position-badge support">Support</span></td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td class="bill-id">SB 1923</td>
+                            <td>West</td>
+                            <td>Judiciary & Civil Juris</td>
+                            <td><span class="position-badge support">Support</span></td>
+                            <td><span class="position-badge support">Support</span></td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td class="bill-id">SB 1896</td>
+                            <td>Huffman</td>
+                            <td>Criminal Jurisprudence</td>
+                            <td><span class="position-badge support">Support</span></td>
+                            <td><span class="position-badge support">Support</span></td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td class="bill-id">SB 2368</td>
+                            <td>Campbell</td>
+                            <td>State Affairs</td>
+                            <td><span class="position-badge support">Support</span></td>
+                            <td><span class="position-badge support">Support</span></td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td class="bill-id">SB 2206</td>
+                            <td>Bettencourt</td>
+                            <td>Ways & Means</td>
+                            <td><span class="position-badge neutral">Neutral</span></td>
+                            <td><span class="position-badge support">Support</span></td>
+                            <td><span class="fiscal-badge">FISCAL</span></td>
+                        </tr>
+                        <tr>
+                            <td class="bill-id">SB 1362</td>
+                            <td>Hughes</td>
+                            <td>Criminal Jurisprudence</td>
+                            <td><span class="position-badge support">Support</span></td>
+                            <td><span class="position-badge support">Support</span></td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td class="bill-id">SB 974</td>
+                            <td>Eckhardt</td>
+                            <td>Ways & Means</td>
+                            <td><span class="position-badge oppose">Oppose</span></td>
+                            <td><span class="position-badge oppose">Oppose</span></td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td class="bill-id">SJR 1</td>
+                            <td>Huffman</td>
+                            <td>Criminal Justice</td>
+                            <td><span class="position-badge support">Support</span></td>
+                            <td><span class="position-badge support">Support</span></td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Chart.js configuration
+        Chart.defaults.color = '#8892b0';
+        Chart.defaults.font.family = "'Segoe UI', sans-serif";
+
+        // Caucus Position Chart
+        new Chart(document.getElementById('caucusChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Support', 'Oppose', 'Neutral'],
+                datasets: [{
+                    data: [44, 9, 19],
+                    backgroundColor: [
+                        'rgba(72, 187, 120, 0.8)',
+                        'rgba(252, 129, 129, 0.8)',
+                        'rgba(246, 224, 94, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(72, 187, 120, 1)',
+                        'rgba(252, 129, 129, 1)',
+                        'rgba(246, 224, 94, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { padding: 15, usePointStyle: true, pointStyle: 'circle' }
+                    }
+                },
+                cutout: '60%'
+            }
+        });
+
+        // TCC Position Chart
+        new Chart(document.getElementById('tccChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Support', 'Oppose', 'Neutral'],
+                datasets: [{
+                    data: [51, 6, 15],
+                    backgroundColor: [
+                        'rgba(72, 187, 120, 0.8)',
+                        'rgba(252, 129, 129, 0.8)',
+                        'rgba(246, 224, 94, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(72, 187, 120, 1)',
+                        'rgba(252, 129, 129, 1)',
+                        'rgba(246, 224, 94, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { padding: 15, usePointStyle: true, pointStyle: 'circle' }
+                    }
+                },
+                cutout: '60%'
+            }
+        });
+
+        // Committee Breakdown Chart
+        new Chart(document.getElementById('committeeChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Judiciary', 'Public Ed', 'State Affairs', 'Higher Ed', 'Ways & Means'],
+                datasets: [{
+                    data: [11, 7, 6, 8, 7],
+                    backgroundColor: 'rgba(102, 126, 234, 0.7)',
+                    borderColor: 'rgba(102, 126, 234, 1)',
+                    borderWidth: 1,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Filter functionality
+        document.querySelectorAll('.filter-pill').forEach(pill => {
+            pill.addEventListener('click', () => {
+                document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
