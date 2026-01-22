@@ -6,11 +6,11 @@
   <title>Explainable AI Finance App</title>
   <style>
     :root {
-      --ink: #e8e8e8;
-      --muted: #8892b0;
-      --card: rgba(255, 255, 255, 0.05);
-      --line: rgba(255, 255, 255, 0.1);
-      --accent: #667eea;
+      --ink: #2b221e;
+      --muted: #6a564b;
+      --card: rgba(244, 236, 228, 0.95);
+      --line: rgba(90, 54, 44, 0.18);
+      --accent: #5a2c2c;
     }
 
     * {
@@ -21,7 +21,10 @@
 
     body {
       font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, sans-serif;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      background:
+        radial-gradient(1200px 900px at 10% -20%, rgba(186, 165, 147, 0.45), transparent 60%),
+        radial-gradient(900px 700px at 90% 0%, rgba(165, 144, 126, 0.4), transparent 55%),
+        linear-gradient(180deg, #c9b8aa 0%, #b9a797 100%);
       color: var(--ink);
       line-height: 1.7;
       min-height: 100vh;
@@ -45,7 +48,7 @@
     }
 
     .back-link:hover {
-      color: #fff;
+      color: #2b221e;
     }
 
     h1 {
@@ -76,7 +79,7 @@
     }
 
     .slide-row .frame-outline {
-      border: 2px solid rgba(0, 0, 0, 0.6);
+      border: 2px solid rgba(60, 32, 28, 0.6);
     }
 
     .slide-row .frame-rounded {
@@ -118,8 +121,8 @@
 
     .tag {
       font-size: 0.8rem;
-      color: #c7d2fe;
-      background: rgba(102, 126, 234, 0.15);
+      color: #5a2c2c;
+      background: rgba(90, 54, 44, 0.12);
       padding: 0.3rem 0.7rem;
       border-radius: 999px;
     }

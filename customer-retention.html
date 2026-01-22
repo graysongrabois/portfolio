@@ -6,11 +6,11 @@
   <title>Customer Retention Model</title>
   <style>
     :root {
-      --ink: #e8e8e8;
-      --muted: #8892b0;
-      --card: rgba(255, 255, 255, 0.05);
-      --line: rgba(255, 255, 255, 0.1);
-      --accent: #667eea;
+      --ink: #2b221e;
+      --muted: #6a564b;
+      --card: rgba(244, 236, 228, 0.95);
+      --line: rgba(90, 54, 44, 0.18);
+      --accent: #5a2c2c;
     }
 
     * {
@@ -21,8 +21,11 @@
 
     body {
       font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, sans-serif;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-      color: var(--ink);
+      background:
+        radial-gradient(1200px 900px at 10% -20%, rgba(186, 165, 147, 0.45), transparent 60%),
+        radial-gradient(900px 700px at 90% 0%, rgba(165, 144, 126, 0.4), transparent 55%),
+        linear-gradient(180deg, #c9b8aa 0%, #b9a797 100%);
+      color: #2b221e;
       line-height: 1.7;
       min-height: 100vh;
     }
@@ -37,7 +40,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      color: var(--muted);
+      color: #6a564b;
       text-decoration: none;
       font-size: 0.95rem;
       margin-bottom: 2rem;
@@ -45,7 +48,7 @@
     }
 
     .back-link:hover {
-      color: #fff;
+      color: #2b221e;
     }
 
     h1 {
@@ -54,7 +57,7 @@
     }
 
     .subtitle {
-      color: var(--muted);
+      color: #6a564b;
       max-width: 60ch;
       margin-bottom: 2rem;
     }
@@ -62,9 +65,9 @@
     .hero {
       border-radius: 16px;
       overflow: hidden;
-      border: 1px solid var(--line);
-      background: var(--card);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(90, 54, 44, 0.18);
+      background: rgba(244, 236, 228, 0.95);
+      box-shadow: 0 20px 50px rgba(55, 35, 28, 0.15);
       margin-bottom: 2rem;
     }
 
@@ -80,8 +83,8 @@
     }
 
     .panel {
-      background: var(--card);
-      border: 1px solid var(--line);
+      background: rgba(244, 236, 228, 0.95);
+      border: 1px solid rgba(90, 54, 44, 0.18);
       border-radius: 14px;
       padding: 1.5rem;
     }
@@ -99,8 +102,8 @@
 
     .tag {
       font-size: 0.8rem;
-      color: #c7d2fe;
-      background: rgba(102, 126, 234, 0.15);
+      color: #5a2c2c;
+      background: rgba(90, 54, 44, 0.12);
       padding: 0.3rem 0.7rem;
       border-radius: 999px;
     }

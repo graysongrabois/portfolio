@@ -17,8 +17,11 @@
 
         body {
             font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            color: #e8e8e8;
+            background:
+                radial-gradient(1200px 900px at 10% -20%, rgba(186, 165, 147, 0.45), transparent 60%),
+                radial-gradient(900px 700px at 90% 0%, rgba(165, 144, 126, 0.4), transparent 55%),
+                linear-gradient(180deg, #c9b8aa 0%, #b9a797 100%);
+            color: #2b221e;
             line-height: 1.7;
             min-height: 100vh;
         }
@@ -32,6 +35,7 @@
             height: 100%;
             z-index: 0;
             pointer-events: none;
+            opacity: 0.06;
         }
 
         /* Main Content */
@@ -45,20 +49,54 @@
 
         /* Header Section */
         .header {
-            text-align: center;
+            width: 100vw;
+            margin-left: calc(50% - 50vw);
+            margin-right: calc(50% - 50vw);
             margin-bottom: 4rem;
-            padding-top: 2rem;
+            padding: 2.5rem 2rem;
+            background: rgba(244, 236, 228, 0.92);
+            border-bottom: 1px solid rgba(90, 54, 44, 0.2);
+            box-shadow: 0 18px 40px rgba(55, 35, 28, 0.12);
+        }
+
+        .header-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .banner-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .banner-left {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex: 1 1 460px;
+        }
+
+        .banner-text {
+            display: grid;
+            gap: 0.4rem;
         }
 
         .avatar {
-            width: 150px;
-            height: 150px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
-            margin: 0 auto 2rem;
+            margin: 0;
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+            flex: 0 0 auto;
+            box-shadow: 0 10px 40px rgba(55, 35, 28, 0.18);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 3px solid rgba(102, 126, 234, 0.5);
+            border: 3px solid rgba(90, 54, 44, 0.25);
         }
 
         .avatar img {
@@ -69,15 +107,15 @@
 
         .avatar:hover {
             transform: scale(1.05);
-            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.4);
-            border-color: rgba(102, 126, 234, 0.8);
+            box-shadow: 0 15px 50px rgba(55, 35, 28, 0.28);
+            border-color: rgba(90, 54, 44, 0.5);
         }
 
         h1 {
             font-size: 2.75rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #fff 0%, #a8b2d1 100%);
+            background: linear-gradient(135deg, #241a16 0%, #5a2c2c 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -85,22 +123,22 @@
 
         .tagline {
             font-size: 1.35rem;
-            color: #8892b0;
+            color: #3f2f29;
             margin-bottom: 0.5rem;
         }
 
         .subtagline {
             font-size: 1rem;
-            color: #5a6a8a;
+            color: #6a564b;
             margin-bottom: 1.5rem;
         }
 
         /* Social Links */
         .social-links {
             display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: flex-end;
         }
 
         .social-link {
@@ -108,10 +146,10 @@
             align-items: center;
             gap: 0.5rem;
             padding: 0.6rem 1.2rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(247, 240, 233, 0.75);
+            border: 1px solid rgba(90, 54, 44, 0.2);
             border-radius: 25px;
-            color: #a8b2d1;
+            color: #3b2d27;
             text-decoration: none;
             font-size: 0.9rem;
             transition: all 0.3s ease;
@@ -119,8 +157,8 @@
 
         .social-link:hover {
             background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(102, 126, 234, 0.5);
-            color: #fff;
+            border-color: rgba(90, 54, 44, 0.5);
+            color: #2b221e;
             transform: translateY(-2px);
         }
 
@@ -132,14 +170,13 @@
         /* Navigation */
         nav {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             gap: 2rem;
-            margin-top: 2rem;
             flex-wrap: wrap;
         }
 
         nav a {
-            color: #8892b0;
+            color: #6a564b;
             text-decoration: none;
             font-size: 0.95rem;
             padding: 0.5rem 0;
@@ -154,12 +191,12 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
+            background: linear-gradient(90deg, #5a2c2c, #8b4a3b);
             transition: width 0.3s ease;
         }
 
         nav a:hover {
-            color: #fff;
+            color: #2b221e;
         }
 
         nav a:hover::after {
@@ -174,7 +211,7 @@
         .section-title {
             font-size: 1.5rem;
             font-weight: 600;
-            color: #fff;
+            color: #2b221e;
             margin-bottom: 2rem;
             display: flex;
             align-items: center;
@@ -185,7 +222,7 @@
             content: '';
             width: 30px;
             height: 2px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
+            background: linear-gradient(90deg, #5a2c2c, #8b4a3b);
         }
 
         /* Core Skills (Analyzing, Developing, Communicating) */
@@ -199,14 +236,24 @@
 
         .core-skill {
             text-align: center;
-            padding: 1.5rem;
+            padding: 1.75rem;
+            background: rgba(239, 230, 221, 0.9);
+            border: 1px solid rgba(90, 54, 44, 0.18);
+            border-radius: 12px;
+            transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+        }
+
+        .core-skill:hover {
+            background: rgba(244, 236, 228, 0.98);
+            border-color: rgba(90, 54, 44, 0.45);
+            transform: translateY(-4px);
         }
 
         .core-skill-icon {
             width: 64px;
             height: 64px;
             margin: 0 auto 1.5rem;
-            color: #667eea;
+            color: #5a2c2c;
             opacity: 0.9;
         }
 
@@ -234,12 +281,12 @@
         .core-skill h3 {
             font-size: 1.3rem;
             font-weight: 600;
-            color: #fff;
+            color: #2b221e;
             margin-bottom: 1rem;
         }
 
         .core-skill p {
-            color: #8892b0;
+            color: #5a463d;
             font-size: 0.95rem;
             line-height: 1.7;
         }
@@ -253,7 +300,7 @@
 
         /* About */
         .about-text {
-            color: #a8b2d1;
+            color: #5a463d;
             font-size: 1.05rem;
             max-width: 700px;
         }
@@ -263,7 +310,7 @@
         }
 
         .highlight {
-            color: #667eea;
+            color: #5a2c2c;
             font-weight: 500;
         }
 
@@ -275,23 +322,23 @@
         }
 
         .skill-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(239, 230, 221, 0.9);
+            border: 1px solid rgba(90, 54, 44, 0.18);
             border-radius: 12px;
             padding: 1.5rem;
             transition: all 0.3s ease;
         }
 
         .skill-card:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(102, 126, 234, 0.3);
+            background: rgba(244, 236, 228, 0.98);
+            border-color: rgba(90, 54, 44, 0.45);
             transform: translateY(-3px);
         }
 
         .skill-card h3 {
             font-size: 1rem;
             font-weight: 600;
-            color: #fff;
+            color: #2b221e;
             margin-bottom: 1rem;
         }
 
@@ -323,8 +370,8 @@
         }
 
         .project-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(244, 236, 228, 0.9);
+            border: 1px solid rgba(90, 54, 44, 0.18);
             border-radius: 12px;
             overflow: hidden;
             transition: all 0.3s ease;
@@ -335,20 +382,20 @@
         }
 
         .project-card:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(102, 126, 234, 0.3);
+            background: rgba(249, 242, 235, 0.98);
+            border-color: rgba(90, 54, 44, 0.45);
             transform: translateY(-5px);
         }
 
         .project-image {
             height: 160px;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            background: linear-gradient(135deg, rgba(237, 226, 216, 0.9) 0%, rgba(228, 214, 200, 0.9) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #5a6a8a;
+            color: #6a564b;
             font-size: 0.85rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(90, 54, 44, 0.12);
         }
 
         .project-image img {
@@ -369,7 +416,7 @@
             right: 0;
             bottom: 0;
             padding: 1rem 1.25rem;
-            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(10, 12, 20, 0.75) 100%);
+            background: linear-gradient(180deg, rgba(244, 236, 228, 0) 0%, rgba(78, 55, 47, 0.4) 100%);
         }
 
         .project-card--hero .project-title {
@@ -401,18 +448,19 @@
         .project-title {
             font-size: 1.1rem;
             font-weight: 600;
-            color: #fff;
+            color: #2b221e;
             margin-bottom: 0.5rem;
             display: inline-block;
             padding: 0.35rem 0.75rem;
             border-radius: 8px;
-            background: linear-gradient(135deg, rgba(22, 33, 62, 0.7), rgba(15, 52, 96, 0.7));
-            border: 1px solid rgba(102, 126, 234, 0.2);
+            background: rgba(249, 242, 235, 0.95);
+            border: 1px solid rgba(90, 54, 44, 0.2);
+            box-shadow: 0 8px 16px rgba(55, 35, 28, 0.12);
         }
 
         .project-description {
             font-size: 0.9rem;
-            color: #8892b0;
+            color: #5a463d;
             margin-bottom: 1rem;
             line-height: 1.6;
         }
@@ -426,8 +474,8 @@
 
         .project-tech span {
             font-size: 0.75rem;
-            color: #667eea;
-            background: rgba(102, 126, 234, 0.1);
+            color: #5a2c2c;
+            background: rgba(90, 54, 44, 0.12);
             padding: 0.25rem 0.6rem;
             border-radius: 4px;
         }
@@ -436,14 +484,14 @@
             display: inline-flex;
             align-items: center;
             gap: 0.4rem;
-            color: #a8b2d1;
+            color: #6a564b;
             text-decoration: none;
             font-size: 0.85rem;
             transition: color 0.3s ease;
         }
 
         .project-link:hover {
-            color: #667eea;
+            color: #5a2c2c;
         }
 
         .project-link svg {
@@ -459,16 +507,16 @@
         }
 
         .experience-item {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(239, 230, 221, 0.9);
+            border: 1px solid rgba(90, 54, 44, 0.18);
             border-radius: 12px;
             padding: 1.5rem;
             transition: all 0.3s ease;
         }
 
         .experience-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(102, 126, 234, 0.3);
+            background: rgba(244, 236, 228, 0.98);
+            border-color: rgba(90, 54, 44, 0.45);
         }
 
         .experience-header {
@@ -483,16 +531,16 @@
         .experience-title {
             font-size: 1.1rem;
             font-weight: 600;
-            color: #fff;
+            color: #2b221e;
         }
 
         .experience-company {
-            color: #667eea;
+            color: #5a2c2c;
             font-size: 0.95rem;
         }
 
         .experience-date {
-            color: #5a6a8a;
+            color: #7a6458;
             font-size: 0.85rem;
         }
 
@@ -504,7 +552,7 @@
             position: relative;
             padding-left: 1.2rem;
             margin-bottom: 0.5rem;
-            color: #8892b0;
+            color: #5a463d;
             font-size: 0.9rem;
         }
 
@@ -512,14 +560,14 @@
             content: '▹';
             position: absolute;
             left: 0;
-            color: #667eea;
+            color: #5a2c2c;
         }
 
         /* Footer */
         footer {
             text-align: center;
             padding: 3rem 0;
-            color: #5a6a8a;
+            color: #7a6458;
             font-size: 0.85rem;
         }
 
@@ -576,43 +624,51 @@
     <div class="content">
         <!-- Header -->
         <header class="header">
-            <div class="avatar"><img src="profile.jpg" alt="Grayson Grabois"></div>
-            <h1>Grayson Grabois</h1>
-            <p class="tagline">I turn messy data into decisions</p>
-            <p class="subtagline">Built tools saving Texas legislators 3,000+ hours. Python • SQL • Storytelling.</p>
+            <div class="header-inner">
+                <div class="banner-row">
+                    <div class="banner-left">
+                        <div class="avatar"><img src="profile.jpg" alt="Grayson Grabois"></div>
+                        <div class="banner-text">
+                            <h1>Grayson Grabois</h1>
+                            <p class="tagline">I turn messy data into decisions</p>
+                            <p class="subtagline">Built tools saving Texas legislators 3,000+ hours. Python • SQL • Storytelling.</p>
+                        </div>
+                    </div>
 
-            <div class="social-links">
-                <a href="mailto:gegrabois@gmail.com" class="social-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                    Email
-                </a>
-                <a href="https://github.com/graysongrabois" target="_blank" class="social-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-                    </svg>
-                    GitHub
-                </a>
-                <a href="https://linkedin.com/in/grayson-grabois" target="_blank" class="social-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
-                    </svg>
-                    LinkedIn
-                </a>
-                <a href="#" class="social-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                    Resume
-                </a>
+                    <div class="social-links">
+                        <a href="mailto:gegrabois@gmail.com" class="social-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            Email
+                        </a>
+                        <a href="https://github.com/graysongrabois" target="_blank" class="social-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                            </svg>
+                            GitHub
+                        </a>
+                        <a href="https://linkedin.com/in/grayson-grabois" target="_blank" class="social-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
+                            </svg>
+                            LinkedIn
+                        </a>
+                        <a href="#" class="social-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            Resume
+                        </a>
+                    </div>
+                </div>
+
+                <nav>
+                    <a href="#about">About</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#experience">Experience</a>
+                </nav>
             </div>
-
-            <nav>
-                <a href="#about">About</a>
-                <a href="#projects">Projects</a>
-                <a href="#experience">Experience</a>
-            </nav>
         </header>
 
         <!-- Core Skills -->
